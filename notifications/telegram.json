@@ -3,7 +3,7 @@
     "project": "project",
     "environment": "some env",
     "comment": "some comment",
-    "reportLink": "https://jenkins.autotests.cloud/job/c13_meowMd_Jenkins_Lesson/3/",
+    "reportLink": "https://jenkins.autotests.cloud/job/c13_meowMd_Jenkins_Lesson/10/",
     "language": "en",
     "allureFolder": "allure-report/",
     "enableChart": true
