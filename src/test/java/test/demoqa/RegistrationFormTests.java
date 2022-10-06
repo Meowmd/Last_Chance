@@ -48,7 +48,7 @@ public class RegistrationFormTests extends TestBase {
             $("#dateOfBirthInput").click();
             $(".react-datepicker__month-select").selectOption("December");
             $(".react-datepicker__year-select").selectOption("1987");
-            $("[aria-label='Choose Saturday, December 10th, 1988']").click();
+            $("[aria-label='Choose Saturday, December 10th, 1987']").click();
         });
         step("Заполнить поле предметной области", () -> {
             $("#subjectsInput").sendKeys("m");
@@ -58,7 +58,7 @@ public class RegistrationFormTests extends TestBase {
             $("#hobbiesWrapper").$(byText("Sports")).click();
         });
         step("Загрузить фото", () -> {
-            $("#uploadPicture").uploadFromClasspath("resources/test.jpg");
+            $("#uploadPicture").uploadFromClasspath("test.jpg");
         });
         step("Ввести адрес,выбрать штат и город", () -> {
             $("#currentAddress").setValue("Palm Street");
