@@ -1,8 +1,6 @@
 package test.demoqa;
 
-import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -11,72 +9,43 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class RegistrationFormTests extends TestBase {
-
     @Test
-    @Tag("formTest")
-    @Severity(SeverityLevel.NORMAL)
-    @Feature("Сборка в Jenkins")
-    @Story("Создание новой сборки в Jenkins")
-    @Link(name = "Demoqa", url = "https://demoqa.com/automation-practice-form")
-    @DisplayName("Fill out the registration form")
-
+    @DisplayName("Successful fill form")
     void successfulTest() {
-        String fName = "Mark";
-        String lName = "Born";
-        String userEmail = "Born@gloom.snail";
+        String firstName = "Alex";
+        String lastName = "Egorov";
 
-        step("Открыть форму регистрации студента", () -> {
+        step("Open registrations form", () -> {
             open("/automation-practice-form");
+            $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
             executeJavaScript("$('footer').remove()");
             executeJavaScript("$('#fixedban').remove()");
         });
-        step("Заполнить поле Имя и Фамилия", () -> {
-            $("#firstName").setValue(fName);
-            $("#lastName").setValue(lName);
-        });
-        step("Заполнить поле Email", () -> {
-            $("#userEmail").setValue(userEmail);
-        });
-        step("Выбрать пол студента", () -> {
-            $("#genterWrapper").$(byText("Male")).click();
-        });
-        step("Ввести номер моб.телефона", () -> {
-            $("#userNumber").setValue("9500267340");
-        });
-        step("Ввести дату рождения", () -> {
+        step("Fill form", () -> {
+            $("#firstName").setValue(firstName);
+            $("#lastName").setValue(lastName);
+            $("#userEmail").setValue("alex@egorov.com");
+            $("#genterWrapper").$(byText("Other")).click();
+            $("#userNumber").setValue("1231231230");
             $("#dateOfBirthInput").click();
-            $(".react-datepicker__month-select").selectOption("December");
-            $(".react-datepicker__year-select").selectOption("1988");
-            $("[aria-label='Choose Saturday, December 10th, 1988']").click();
-        });
-        step("Заполнить поле предметной области", () -> {
-            $("#subjectsInput").sendKeys("m");
-            $(byText("Maths")).click();
-        });
-        step("Выбрать хобби", () -> {
+            $(".react-datepicker__month-select").selectOption("July");
+            $(".react-datepicker__year-select").selectOption("2008");
+            $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
+            $("#subjectsInput").sendKeys("Maths");
+            $("#subjectsInput").pressEnter();
             $("#hobbiesWrapper").$(byText("Sports")).click();
-        });
-        step("Загрузить фото", () -> {
             $("#uploadPicture").uploadFromClasspath("test.jpg");
-        });
-        step("Ввести адрес,выбрать штат и город", () -> {
-            $("#currentAddress").setValue("Palm Street");
+            $("#currentAddress").setValue("Some street 1");
             $("#state").click();
-            $(byText("NCR")).click();
+            $("#stateCity-wrapper").$(byText("NCR")).click();
             $("#city").click();
-            $(byText("Noida")).click();
-        });
-        step("Нажать кнопку подтвердить", () -> {
+            $("#stateCity-wrapper").$(byText("Delhi")).click();
             $("#submit").click();
         });
-
-        step("Сверить результаты заполненной формы регистрации", () -> {
-            $(".modal-content").shouldHave(text("Mark"), text("Born"), text("Born@gloom.snail"),
-                    text("Male"), text("9500267340"), text("10 December,1988"),
-                    text("test.png"), text("Palm Street"),
-                    text("NCR"), text("Noida"), text("Thanks for submitting the form"));
+        step("Check form results", () -> {
+            $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+            $(".table-responsive").shouldHave(text(firstName), text(lastName),
+                    text("alex@egorov.com"), text("Some street 1"), text("30 July,2008"));
         });
-
-
     }
 }
