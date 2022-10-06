@@ -47,8 +47,8 @@ public class RegistrationFormTests extends TestBase {
         step("Ввести дату рождения", () -> {
             $("#dateOfBirthInput").click();
             $(".react-datepicker__month-select").selectOption("December");
-            $(".react-datepicker__year-select").selectOption("1987");
-            $("[aria-label='Choose Saturday, December 10th, 1987']").click();
+            $(".react-datepicker__year-select").selectOption("1988");
+            $("[aria-label='Choose Saturday, December 10th, 1988']").click();
         });
         step("Заполнить поле предметной области", () -> {
             $("#subjectsInput").sendKeys("m");
@@ -73,7 +73,7 @@ public class RegistrationFormTests extends TestBase {
 
         step("Сверить результаты заполненной формы регистрации", () -> {
             $(".modal-content").shouldHave(text("Mariya"), text("Bykova"), text("Mariya.Bykova@nedra.digital"),
-                    text("Female"), text("9500267340"), text("10 December,1987"),
+                    text("Female"), text("9500267340"), text("10 December,1988"),
                     text("test.png"), text("Palm Street"),
                     text("NCR"), text("Noida"), text("Thanks for submitting the form"));
         });
